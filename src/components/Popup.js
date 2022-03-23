@@ -28,7 +28,7 @@ class ModalExample extends React.Component {
           backdrop={this.state.backdrop}
         >
           <ModalHeader toggle={this.toggle}>
-            <h2 className="h2">Welcome to the : The Solar Burst Identifier!</h2>
+            <h2 className="h2">Welcome to JuX: The Solar Burst Identifier!</h2>
           </ModalHeader>
           <ModalBody className="ModalBody">
             <p className="modal1">
