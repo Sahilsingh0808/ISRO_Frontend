@@ -10,7 +10,7 @@ const ChartCard = ({ type, label, mainValue, chartObject, isVisible }) => {
         <CardHeader>
           <h5 className="card-category">{label}</h5>
           <CardTitle tag="h3">
-            <i className="tim-icons icon-send text-info" /> {mainValue}
+            {/* <i className="tim-icons icon-send text-info" /> {mainValue} */}
           </CardTitle>
         </CardHeader>
         <CardBody>

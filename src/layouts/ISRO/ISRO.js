@@ -521,7 +521,7 @@ const ISROLayout = () => {
 
     console.log("sending data");
     axios
-      .post("http://127.0.0.1:5000/api/upload", formData)
+      .post("https://jux-server.herokuapp.com/api/upload", formData)
       .then((res) => {
         // console.log(res.data);
 
@@ -536,7 +536,7 @@ const ISROLayout = () => {
     //   })
     //   .catch((err) => console.log(err));
     axios
-      .post("http://127.0.0.1:5000/api/x", formData)
+      .post("https://jux-server.herokuapp.com/api/x", formData)
       .then((res) => {
         var xH = xHist;
         xH.push(res.data);
@@ -546,7 +546,7 @@ const ISROLayout = () => {
       })
       .catch((err) => console.log(err));
     axios
-      .post("http://127.0.0.1:5000/api/y", formData)
+      .post("https://jux-server.herokuapp.com/api/y", formData)
       .then((res) => {
         // console.log(res.data);
         var yH = yHist;
@@ -557,7 +557,7 @@ const ISROLayout = () => {
       })
       .catch((err) => console.log(err));
     axios
-      .post("http://127.0.0.1:5000/api/xOri", formData)
+      .post("https://jux-server.herokuapp.com/api/xOri", formData)
       .then((res) => {
         var xH = xOriHist;
         xH.push(res.data);
@@ -567,7 +567,7 @@ const ISROLayout = () => {
       })
       .catch((err) => console.log(err));
     axios
-      .post("http://127.0.0.1:5000/api/yOri", formData)
+      .post("https://jux-server.herokuapp.com/api/yOri", formData)
       .then((res) => {
         var xH = yOriHist;
         xH.push(res.data);
@@ -577,6 +577,11 @@ const ISROLayout = () => {
       })
       .catch((err) => console.log(err));
     // console.log("FIRST ENTRY");
+  };
+
+  const paginationComponentOptions = {
+    selectAllRowsItem: true,
+    selectAllRowsItemText: 'ALL',
   };
 
   const inputFile = useRef(null);
@@ -668,12 +673,13 @@ const ISROLayout = () => {
                   <CardTitle tag="h4"> Data Table </CardTitle>{" "}
                 </CardHeader>{" "}
                 <CardBody>
-                  <DataTable
+                  <DataTable 
                     pagination
                     highlightOnHover
+                    paginationComponentOptions={paginationComponentOptions}
                     columns={[
                       {
-                        name: "Start\nTime",
+                        name: "Start Time",
                         selector: "start_time",
                         sortable: true,
                         width: "115px",
@@ -699,6 +705,7 @@ const ISROLayout = () => {
                         selector: "end_time",
                         sortable: true,
                         width: "115px",
+                        style:{justifyContent:"left",textOverflow:"ellipsis"},
                         textAlign: "center",
                         align: "center", // added line here
                         headerStyle: (selector, id) => {
@@ -1072,7 +1079,7 @@ const ISROLayout = () => {
                 src={logo}
                 style={{
                   height: "12vh",
-                  marginLeft: "-31vh",
+                  marginLeft: "-5",
                   marginTop: "-1vh",
                 }}
               />
@@ -1093,7 +1100,7 @@ const ISROLayout = () => {
                 src={logoISRO}
                 style={{
                   height: "12vh",
-                  marginRight: "-30vh",
+                  marginRight: "-5",
                   marginTop: "-1vh",
                 }}
               />
