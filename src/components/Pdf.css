@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Kite+One&display=swap');
+.Pdf__container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+@media  print{
+    .Pdf__container{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+    .Pdf__container iframe{
+        width: 100%;
+        height: 100%;
+    }
+    .buttonHide{
+        display:none !important;
+    }
+    .hiddenText{
+        display: block !important;
+        text-align: left;
+        margin-top: 10px;
+
+    }
+    .hiddenTextR{
+        display:none !important;
+    }
+}
+
+.hiddenText{
+    display:none;
+}
+
+.fontHead{
+    font-family: 'Kite One', sans-serif;
+}
+
+.modalText{
+    color: black !important;
+}
+
+.hiddenTextR{
+    display:block;
+}
