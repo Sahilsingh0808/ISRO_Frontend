@@ -13,6 +13,9 @@ import logo from "./JuX-logos.jpeg";
 import logoISRO from "./ISRO.png";
 import config from "./config";
 import "components/Pdf.css";
+import { CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   Card,
   Col,
@@ -70,6 +73,8 @@ const ISROLayout = () => {
   var [yHist, setyHist] = useState([]);
   var [yOriHist, setyOriHist] = useState([]);
   var [xOriHist, setxOriHist] = useState([]);
+  var [datalen, setdatalen] = useState(0);
+  var [loading, setLoading] = useState(false);
 
   const chartObj = {
     data: (canvas) => {
@@ -295,6 +300,8 @@ const ISROLayout = () => {
     var dataH = dataHist;
     dataH.push(list);
     setdataHist(dataH);
+    console.log("Final Length", dataHist.length);
+
     console.log("DATAHIST", dataHist);
     setColumns(columns);
     // console.log("type", typeof columns);
@@ -520,6 +527,9 @@ const ISROLayout = () => {
     setHistory(file.name, count);
 
     console.log("sending data");
+    setdatalen(dataHist.length);
+    console.log("Initial Length", dataHist.length);
+    setLoading(true);
     axios
       .post("https://jux-server.herokuapp.com/api/upload", formData)
       .then((res) => {
@@ -573,6 +583,8 @@ const ISROLayout = () => {
         xH.push(res.data);
         setyOriHist(xH);
         setyOri(res.data);
+        setdatalen(dataHist.length);
+        setLoading(false);
         console.log("XORIHIST", xHist);
       })
       .catch((err) => console.log(err));
@@ -581,7 +593,7 @@ const ISROLayout = () => {
 
   const paginationComponentOptions = {
     selectAllRowsItem: true,
-    selectAllRowsItemText: 'ALL',
+    selectAllRowsItemText: "ALL",
   };
 
   const inputFile = useRef(null);
@@ -631,6 +643,7 @@ const ISROLayout = () => {
           </div>{" "}
           <h0> {name} </h0>{" "}
           <div ref={(el) => (componentRef = el)}>
+            {loading && <CircularProgress color="secondary" />}
             <ChartCard
               type="line"
               label={"Output Curve"}
@@ -646,7 +659,7 @@ const ISROLayout = () => {
                   </Button>{" "} */}
                 <CSVLink
                   data={data1}
-                  filename={"my-file.csv"}
+                  filename={"jux-data.csv"}
                   className="btn btn-primary"
                   target="_blank"
                 >
@@ -673,7 +686,7 @@ const ISROLayout = () => {
                   <CardTitle tag="h4"> Data Table </CardTitle>{" "}
                 </CardHeader>{" "}
                 <CardBody>
-                  <DataTable 
+                  <DataTable
                     pagination
                     highlightOnHover
                     paginationComponentOptions={paginationComponentOptions}
@@ -705,7 +718,10 @@ const ISROLayout = () => {
                         selector: "end_time",
                         sortable: true,
                         width: "115px",
-                        style:{justifyContent:"left",textOverflow:"ellipsis"},
+                        style: {
+                          justifyContent: "left",
+                          textOverflow: "ellipsis",
+                        },
                         textAlign: "center",
                         align: "center", // added line here
                         headerStyle: (selector, id) => {
@@ -1061,10 +1077,8 @@ const ISROLayout = () => {
       </Card>
     </div>
   );
-
   return (
     <>
-    
       <div
         className="container"
         style={{
